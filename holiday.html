@@ -20,10 +20,13 @@
 
     <script src="script.js">
         if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/script.js');
-    });
-  }
+      navigator.serviceWorker.register('/script.js'),then(reg => {
+        console.log('Succesfully Registered');
+      }).catch(err => {
+        console.log('Error while registering Script')
+      });
+    }
+  
     </script>
         <link rel="manifest" href="/manifest.json">
         
