@@ -36,12 +36,15 @@ async function fetchHolidays() {
         `;
     }
 }
-const cacheName = 'my-pwa-cache-v1';
+const requestURL = '/holiday/manifest.json';
 const staticAssets = [
   '/',
   '/holiday.html',
   '/style1.css',
-  '/script.js'
+  '/script.js',
+  '/discord512.png',
+  '/hicon192.png',
+  '/manifest.json'
 ];
 
 self.addEventListener('install', async () => {
