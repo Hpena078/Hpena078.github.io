@@ -18,7 +18,14 @@
     <button id="getHolidaysButton">Get Holidays</button>
     <div id="holidaysContainer"></div>
 
-    <script src="script.js"></script>
-    <link rel="manifest" href="/manifest.json">
+    <script src="script.js">
+        if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/script.js');
+    });
+  }
+    </script>
+        <link rel="manifest" href="/manifest.json">
+        
 </body>
 </html>
