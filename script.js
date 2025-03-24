@@ -58,6 +58,6 @@ self.addEventListener('fetch', event => {
 });
 if ('script' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/script.js');
+      navigator.script.register('/script.js');
     });
   }
