@@ -1,61 +1,22 @@
-document.getElementById('getHolidaysButton').addEventListener('click', fetchHolidays);
+const cacheName = 'holidayPWA';
+const preCache = [
+    './',
+    './holiday.html',
+    './script.js',   
+    './manifest.json'
+]
 
-async function fetchHolidays() {
-    const countryCode = document.getElementById('countrySelect').value;
-    const year = new Date().getFullYear();
 
-    try {
-        const response = await fetch(`/api/v3/PublicHolidays/{Year}/{CountryCode}/`);
-        const holidays = await response.json();
+self.addEventListener('install', e => {
+    console.log('The SW is installed!');
+    e.waitUntil(
+        caches.open(cacheName).then(cache => cache.addAll(preCache))
+    );
 
-        const container = document.getElementById('holidaysContainer');
-        container.innerHTML = `
-            <h2>National Holidays</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Holiday Name</th>
-                        <th>Local Name</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${holidays.map(holiday => `
-                        <tr>
-                            <td>${holiday.date}</td>
-                            <td>${holiday.name}</td>
-                            <td>${holiday.localName}</td>
-                        </tr>
-                    `).join('')}
-                </tbody>
-            </table>
-        `;
-    } catch (error) {
-        document.getElementById('holidaysContainer').innerHTML = `
-            <p>Failed to fetch holidays. Please try again later.</p>
-        `;
-    }
-}
-const requestURL = '/holiday/manifest.json';
-const staticAssets = [
-  '/',
-  '/holiday.html',
-  '/style1.css',
-  '/script.js',
-  '/discord512.png',
-  '/hicon192.png',
-  '/manifest.json'
-];
-
-self.addEventListener('install', async () => {
-  const cache = await caches.open(cacheName);
-  await cache.addAll(staticAssets);
 });
 
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
-    })
-  );
+self.addEventListener('fetch', e => {
+    e.respondWith(
+        caches.match(e.request).then(res => res || fetch(e.request))
+    );
 });

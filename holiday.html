@@ -1,34 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>National Holidays Finder</title>
-    <link rel="stylesheet" href="style1.css">
-</head>
-<body>
-    <h1>National Holidays</h1>
-    <p>Select a country to view its national holidays:</p>
-    <select id="countrySelect">
-        <option value="US">United States</option>
-        <option value="BR">Brazil</option>
-        <option value="DE">Germany</option>
-        <option value="FR">France</option>
-    </select>
-    <button id="getHolidaysButton">Get Holidays</button>
-    <div id="holidaysContainer"></div>
 
-    <script src="script.js">
-        if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/script.js'),then(reg => {
-        console.log('Succesfully Registered');
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>National Holidays Finder</title>
+  <link rel="stylesheet" href="style1.css">
+  <meta name="theme-color" content="#ff4500">
+
+  <link rel="manifest" href="./manifest.json">
+
+</head>
+
+<body>
+  <h1>National Holidays</h1>
+  <p>Select a country to view its national holidays:</p>
+  <select id="countrySelect">
+    <option value="US">United States</option>
+    <option value="BR">Brazil</option>
+    <option value="DE">Germany</option>
+    <option value="FR">France</option>
+  </select>
+  <button id="getHolidaysButton">Get Holidays</button>
+  <div id="holidaysContainer"></div>
+
+  <script src="script.js">
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').then(reg => {
+        console.log('Successfully registered');
       }).catch(err => {
-        console.log('Error while registering Script')
+        console.log('Error while registering SW')
       });
     }
-  
-    </script>
-        <link rel="manifest" href="/manifest.json">
-        
+
+  </script>
+  <link rel="manifest" href="/manifest.json">
+
 </body>
+
 </html>
